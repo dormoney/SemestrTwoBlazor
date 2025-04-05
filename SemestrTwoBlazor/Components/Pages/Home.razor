@@ -1,7 +1,45 @@
 ﻿@page "/"
+@using SemestrTwoBlazor.Model
+@using SemestrTwoBlazor.Requests
+@inject IJSRuntime JS
+@inject HttpClient Http
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div style="height: 90vh" class="justify-content-center d-flex text-blue">
+    <div class="align-content-center">
+        <h2>Авторизация</h2>
+        <EditForm Model="userLogin" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger mb-3" />
 
-Welcome to your new app.
+            <div class="form-group mb-3"></div>
+        </EditForm>
+    </div>
+
+</div>
+
+@code {
+    private User userLogin = new User();
+    private async Task HandleLogin() {
+        try {
+            if (string.IsNullOrEmpty(userLogin.Email) || string.IsNullOrEmpty(userLogin.Password)) {
+                ShowAlert("Пожалуйста введите имя пользователя и/или пароль");
+            }
+
+            var loginRequest = new LoginRequest {
+                Email = userLogin.Email,
+                Password = userLogin.Password
+            };
+
+            var response = await Http.PostAsJsonAsync("api/User/Login", userLogin);
+        }
+        catch (Exception ex) {
+
+        }
+    }
+
+    private void ShowAlert(string message) => JS.InvokeVoidAsync("alert", message);
+
+}
+    
