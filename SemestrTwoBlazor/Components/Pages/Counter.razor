@@ -1,19 +1,68 @@
 ﻿@page "/counter"
+@using SemestrTwoBlazor.ApiRequests
+@using SemestrTwoBlazor.ApiRequests.Model
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
+<p class="text—center fw-bold mb-5 mx-1 mx-md-4 mt-4">
+    <table class="table table-bordered">
+        <thead class="alert-dark">
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Password</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (users == null)
+            {
+                <tr>
+                    <td colspan="3" class="text-center">Loading...</td>
+                </tr>
+            }
+            else if (!users.Any())
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No users found!</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var user in users)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.Email</td>
+                        <td>@user.Name</td>
+                        <td>@user.Description</td>
+                        <td>@user.Password</td>
+                        <td>@user.Role</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+</p>
 
 @code {
-    private int currentCount = 0;
+    private List<UserData> users;
+    [Inject] private ApiRequestService apiRequest { get; set; }
 
-    private void IncrementCount()
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+        await getAllUsers();
+    }
+
+    private async Task getAllUsers()
+    {
+        var user = await apiRequest.GetAllUsers();
+        users = user ?? new List<UserData>();
+
+        StateHasChanged();
     }
 }

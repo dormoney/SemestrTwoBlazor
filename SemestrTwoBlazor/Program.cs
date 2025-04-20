@@ -1,3 +1,4 @@
+using SemestrTwoBlazor.ApiRequests;
 using SemestrTwoBlazor.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<ApiRequestService>();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5278") });
 
 var app = builder.Build();
 
