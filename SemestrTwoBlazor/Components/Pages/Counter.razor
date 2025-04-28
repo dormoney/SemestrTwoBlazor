@@ -58,6 +58,11 @@
         await getAllUsers();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) await getAllUsers();
+    }
+
     private async Task getAllUsers()
     {
         var user = await apiRequest.GetAllUsers();
@@ -65,4 +70,5 @@
 
         StateHasChanged();
     }
+ 
 }

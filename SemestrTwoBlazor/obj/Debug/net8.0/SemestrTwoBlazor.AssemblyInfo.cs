@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SemestrTwoBlazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e27c95630e34401ded0cdfe74ec7f3337d6f4b37")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d03a48a5c572d3cfe29f5ab5a0108b48fe7702f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("SemestrTwoBlazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SemestrTwoBlazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
